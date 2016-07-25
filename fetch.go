@@ -22,6 +22,7 @@ func main() {
 	exec := flag.Bool("x", false, "if -d is set, mark the file as executable")
 	help := flag.Bool("h", false, "show usage")
 	dflo := flag.Bool("r", false, "don't follow redirects")
+	iger := flag.Bool("e", false, "ignore errors and fetch page on status code != 200")
 	flag.Parse()
 
 	if *help {
@@ -43,6 +44,8 @@ func main() {
 			},
 		}
 	}
+
+	errors := 0
 	for _, url := range flag.Args() {
 		if *save {
 			green.Printf("Fetching ")
@@ -58,6 +61,15 @@ func main() {
 				green.Printf("Status ")
 			}
 			fmt.Println(resp.Status)
+		}
+
+		if !*iger && resp.StatusCode != 200 {
+			if *save {
+				red.Printf("Failed ")
+				fmt.Printf("with HTTP status code %v\n", resp.StatusCode)
+			}
+			errors += 1
+			continue
 		}
 
 		body, err := ioutil.ReadAll(resp.Body)
@@ -91,6 +103,13 @@ func main() {
 			ioutil.WriteFile(filename, body, perm)
 		} else {
 			fmt.Printf("%s", body)
+		}
+	}
+
+	if *save {
+		if errors > 0 {
+			color.Yellow(fmt.Sprintf("%v file(s) failed to download due to non-OK HTTP status codes.", errors))
+			color.Yellow("Try running with the '-e' flag to ignore errors and fetch the file(s) anyway.")
 		}
 	}
 }
