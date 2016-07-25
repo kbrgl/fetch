@@ -15,4 +15,4 @@ flags:
 ```
 
 ## Known issues
-* **Shitty filename handling** downloaded files have weird filenames when when filename in Content-Disposition is unspecified; I have no idea how to fix this, if you know something I don't, send a pull request)
+* **Shitty filename handling** downloaded files have weird filenames when when filename in Content-Disposition is unspecified; I have no idea how to fix this, if you know something I don't, send a pull request
