@@ -1,5 +1,5 @@
 # Fetch
-Fetch is what I use to retreive files from the internet (I find other tools like wget and curl too complicated; besides, there's a coolness factor in using your own tools to do stuff).
+Fetch is what I use to retrieve files from the internet. I find other tools like wget and curl too complicated; besides, there's a coolness factor in using your own tools to do stuff.
 
 I started out with [The Go Programming Language's](//gopl.io) 'fetch' program and branched out from there, adding shortcuts that I found useful (including the '-x' flag) as well as other common features.
 
